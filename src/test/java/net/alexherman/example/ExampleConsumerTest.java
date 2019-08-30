@@ -1,11 +1,3 @@
-/*
- * Licensed Materials - Property of IBM
- * 5725Z85
- * (C) Copyright IBM Corp. 2009, 2018. All Rights Reserved.
- * US Government Users Restricted Rights - Use, duplication or
- * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
- */
-
 package net.alexherman.example;
 
 import org.junit.Before;
