@@ -1,0 +1,9 @@
+{
+  "library": "jersey2",
+  "dateLibrary": "java8",
+  "groupId": "net.alexherman.codegen",
+  "artifactId": "swanson-quotes",
+  "modelPackage": "net.alexherman.example.models",
+  "apiPackage": "net.alexherman.example.api",
+  "useRuntimeException": true
+}

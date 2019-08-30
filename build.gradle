@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'idea'
+    id "org.openapi.generator" version "4.0.3"
 }
 
 group 'net.alexherman.examples'
@@ -11,6 +13,63 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    swagger_annotations_version = "1.5.22"
+    jackson_version = "2.9.9"
+    jackson_databind_version = "2.9.9"
+    jersey_version = "2.27"
+    junit_version = "4.12"
+}
+
 dependencies {
+    compile "io.swagger:swagger-annotations:$swagger_annotations_version"
+    compile "org.glassfish.jersey.core:jersey-client:$jersey_version"
+    compile "org.glassfish.jersey.media:jersey-media-multipart:$jersey_version"
+    compile "org.glassfish.jersey.media:jersey-media-json-jackson:$jersey_version"
+    compile "org.glassfish.jersey.inject:jersey-hk2:$jersey_version"
+    compile "com.fasterxml.jackson.core:jackson-core:$jackson_version"
+    compile "com.fasterxml.jackson.core:jackson-annotations:$jackson_version"
+    compile "com.fasterxml.jackson.core:jackson-databind:$jackson_databind_version"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version"
+
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
+sourceSets {
+    generated{
+        java.srcDir "${buildDir}/generated/java/"
+    }
+}
+
+compileJava{
+    dependsOn(compileGeneratedJava)
+    source += sourceSets.generated.java
+}
+
+compileGeneratedJava{
+    classpath = configurations.compile
+}
+
+openApiValidate {
+    inputSpec = "$rootDir/documentation/schema.json"
+}
+
+task buildJavaClient(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+    generatorName = "java"
+    inputSpec = "$rootDir/documentation/schema.json"
+    outputDir = "$buildDir/generated/java"
+    configFile = "$rootDir/documentation/config_java.json"
+    generateApiTests = false
+    generateModelTests = false
+}
+
+task buildRubyClient(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+    generatorName = "ruby"
+    inputSpec = "$rootDir/documentation/schema.json"
+    outputDir = "$buildDir/generated/ruby"
+    configFile = "$rootDir/documentation/config_ruby.json"
+    generateApiTests = false
+    generateModelTests = false
+}
+
+build.dependsOn buildJavaClient
