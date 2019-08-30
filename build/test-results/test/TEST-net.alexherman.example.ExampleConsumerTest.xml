@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="net.alexherman.example.ExampleConsumerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-08-30T18:47:09" hostname="Alexs-MacBook-Pro.local" time="1.396">
-  <properties/>
-  <testcase name="itGetsSomeKnowledge" classname="net.alexherman.example.ExampleConsumerTest" time="1.396"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
